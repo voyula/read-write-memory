@@ -21,8 +21,8 @@ int main()
         exit(-1);
     }
 
-    ReadProcessMemory(handle, (PBYTE*) 0x00000000, &read, sizeof(int), 0);
-    WriteProcessMemory(handle, (LPVOID) 0x00000000, &newValue, sizeof(int), 0);
+    ReadProcessMemory(handle, (PBYTE*) 0x00000000, &read, sizeof(int), NULL);
+    WriteProcessMemory(handle, (LPVOID) 0x00000000, &newValue, sizeof(int), NULL);
     Sleep(10000);
 
     return 0;
