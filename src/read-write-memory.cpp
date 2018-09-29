@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "Windows.h"
+#include <stdafx.h>
+#include <Windows.h>
 
 int main()
 {
@@ -22,6 +22,8 @@ int main()
     }
 
     ReadProcessMemory(handle, (LPVOID) 0x00000000, &read, sizeof(int), NULL);
+	printf("%d", read);
+
     WriteProcessMemory(handle, (LPVOID) 0x00000000, &newValue, sizeof(int), NULL);
     Sleep(10000);
 
