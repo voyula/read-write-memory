@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Windows.h"
-#include "read-write-memory.h" // header in local directory
-#include <iostream> // header in standard library
+#include "read-write-memory.h"
+#include <iostream>
 
 using namespace Memory;
 using namespace std;
@@ -30,7 +30,7 @@ int read_write_memory::getProcess(string processName)
 int read_write_memory::readMemory(int handle, LPVOID lpBaseAddress)
 {
     int read = 0;
-    ReadProcessMemory(handle, lpBaseAddress, read, sizeof(int), NULL);
+    ReadProcessMemory(handle, lpBaseAddress, &read, sizeof(int), NULL);
 
     return read;
 }
