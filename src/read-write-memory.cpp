@@ -4,8 +4,17 @@
 int main()
 {
     int newValue = 1000;
-    int read = 0;
-    HWND hwnd = FindWindowA(NULL, "Application Name");
+    int process = getProcessID("Application Name");
+    printf("%d", readMemory(process, 0x00000000));
+    printf("%d", writeMemory(process, 0x00000000, 1000));
+    Sleep(10000);
+
+    return 0;
+}
+
+int getProcess(string processName)
+{
+    HWND hwnd = FindWindowA(NULL, processName);
     if(hwnd == NULL) {
         printf("Error");
         Sleep(5000);
@@ -21,11 +30,18 @@ int main()
         exit(-1);
     }
 
-    ReadProcessMemory(handle, (LPVOID) 0x00000000, &read, sizeof(int), NULL);
-    printf("%d", read);
+    return handle;
+}
 
-    WriteProcessMemory(handle, (LPVOID) 0x00000000, &newValue, sizeof(int), NULL);
-    Sleep(10000);
+int readMemory(int handle, LPVOID lpBaseAddress)
+{
+    int read = 0;
+    ReadProcessMemory(handle, lpBaseAddress, read, sizeof(int), NULL);
 
-    return 0;
+    return read;
+}
+
+bool writeMemory(int handle, LPVOID lpBaseAddress, int write)
+{
+    return WriteProcessMemory(handle, lpBaseAddress, write, sizeof(int), NULL);
 }
