@@ -1,18 +1,12 @@
 #include "stdafx.h"
 #include "Windows.h"
+#include "read-write-memory.h" // header in local directory
+#include <iostream> // header in standard library
 
-int main()
-{
-    int newValue = 1000;
-    int process = getProcessID("Application Name");
-    printf("%d", readMemory(process, 0x00000000));
-    printf("%d", writeMemory(process, 0x00000000, 1000));
-    Sleep(10000);
+using namespace Memory;
+using namespace std;
 
-    return 0;
-}
-
-int getProcess(string processName)
+int read_write_memory::getProcess(string processName)
 {
     HWND hwnd = FindWindowA(NULL, processName);
     if(hwnd == NULL) {
@@ -33,7 +27,7 @@ int getProcess(string processName)
     return handle;
 }
 
-int readMemory(int handle, LPVOID lpBaseAddress)
+int read_write_memory::readMemory(int handle, LPVOID lpBaseAddress)
 {
     int read = 0;
     ReadProcessMemory(handle, lpBaseAddress, read, sizeof(int), NULL);
@@ -41,7 +35,7 @@ int readMemory(int handle, LPVOID lpBaseAddress)
     return read;
 }
 
-bool writeMemory(int handle, LPVOID lpBaseAddress, int write)
+bool read_write_memory::writeMemory(int handle, LPVOID lpBaseAddress, int write)
 {
     return WriteProcessMemory(handle, lpBaseAddress, write, sizeof(int), NULL);
 }
