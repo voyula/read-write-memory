@@ -1,4 +1,4 @@
-#include "../read_write_memory.h"
+#include "../src/read_write_memory.h"
 
 using namespace Memory;
 
